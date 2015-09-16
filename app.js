@@ -8,7 +8,8 @@ var express = require('express')
   , path = require('path')
   , stylus = require('stylus')
   , config = require('./config/config')
-  , index = require('./routes/index');
+  , index = require('./routes/index')
+  , story = require('./routes/story');
 
 var app = express();
 
@@ -66,6 +67,7 @@ Date.prototype.toLocaleTimeString = function () {
 };
 
 app.get('/', index.index);
+app.get('/story/:id', story.storyById);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS storytree;
+CREATE DATABASE storytree;
