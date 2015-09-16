@@ -15,6 +15,7 @@ CREATE TABLE `story_snippets` (
 );
 
 CREATE TABLE `story_snippets_closure` (
+  `story_id` int(11) DEFAULT NULL,
   `ancestor` int(11) DEFAULT NULL,
   `descendant` int(11) DEFAULT NULL,
   `length` int(11) DEFAULT NULL
