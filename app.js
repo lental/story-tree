@@ -68,6 +68,9 @@ Date.prototype.toLocaleTimeString = function () {
 
 app.get('/', index.index);
 app.get('/story/:id', story.storyById);
+app.get('/stories', story.allStories);
+app.get('/snippets/:id', story.snippetBranch);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

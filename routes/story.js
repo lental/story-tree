@@ -18,7 +18,7 @@ var pool  = mysql.createPool({
 exports.storyById = function(req, res){
   res.set('Cache-Control', 'max-age=10');
   db.getFullStoryTree(pool, req.params.id, function(snippets, err) {
-    builtTree = convertSnippetsToFullTree(snippets);
+    var builtTree = convertSnippetsToFullTree(snippets);
     console.log (JSON.stringify(builtTree));
     // res.send(JSON.stringify(builtTree));
     res.render('story', {treeJson: builtTree});
@@ -32,12 +32,36 @@ function convertSnippetsToFullTree(snippets) {
   builtTree["root"] = root;
   builtTree[root.id] = [];
   for (var i = 1; i < snippets.length; i++) {
-    snip = snippets[i];
+    var snip = snippets[i];
     if(!builtTree[snip.ancestor]) {
       builtTree[snip.ancestor] = [];
     }
     builtTree[snip.ancestor].push(snip);
   }
-
   return builtTree;
 }
+
+/*
+ * GET stories
+ */
+
+exports.allStories = function(req, res){
+  res.set('Cache-Control', 'max-age=10');
+  db.getAllStories(pool, function(stories, err) {
+    console.log (JSON.stringify(stories));
+    // res.render('stories', {stories: stories});
+    res.send(stories, 200);
+  });
+};
+/*
+ * GET snippets/id
+ */
+
+exports.snippetBranch = function(req, res){
+  res.set('Cache-Control', 'max-age=10');
+  db.getStoryBranchFromLeafSnippet(pool, req.params.id, function(snippets, err) {
+    console.log (JSON.stringify(snippets));
+    // res.render('stories', {stories: stories});
+    res.send(snippets, 200);
+  });
+};

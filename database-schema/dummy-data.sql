@@ -22,6 +22,9 @@ select snippet_id from stories where id=1
 //Get all parent-child relationships for the root.
 select sn.*, snc.* from story_snippets sn JOIN story_snippets_closure snc ON (sn.id = snc.descendant) where snc.root =  AND length = 1;
 select sn.*, snc.* from story_snippets sn JOIN story_snippets_closure snc ON (sn.id = snc.descendant) where snc.story_id = 1 AND (length = 1 OR snc.descendant = (select snippet_id from stories where id=1)) ;
+
+SELECT sn.*, snc.* FROM story_snippets sn JOIN story_snippets_closure snc ON (sn.id = snc.descendant) WHERE (snc.ancestor = (select snippet_id from stories where id=?) AND length = 1)  OR snc.descendant = (select snippet_id from stories where id=?);, 1
+
 // Get entire tree (no way to parse)
 select sn.*, snc.* from story_snippets sn JOIN story_snippets_closure snc ON (sn.id = snc.descendant) where snc.ancestor = (select snippet_id from stories where id=1);
 
