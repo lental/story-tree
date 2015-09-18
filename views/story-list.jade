@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  div
+    -for (var child in storyList)
+      div.story
+        a.story-link(href="/story/#{storyList[child].id}") #{storyList[child].name}

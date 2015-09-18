@@ -1,10 +1,10 @@
 extends layout
 
-mixin renderTree(obj, treeJson)
-  span #{obj.body}
+mixin renderTree(snip, treeJson)
+  a.snippet(href="/snippets/#{snip.id}") #{snip.body}
   div.children
-    -for (var child in treeJson[obj.id])
-      +renderTree(treeJson[obj.id][child], treeJson)
+    -for (var child in treeJson[snip.id])
+      +renderTree(treeJson[snip.id][child], treeJson)
 
 block content
   div

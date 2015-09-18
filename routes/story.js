@@ -10,11 +10,9 @@ var pool  = mysql.createPool({
     database: config.mysql.database,
     password: config.mysql.password });
 
-
 /*
  * GET story/1
  */
-
 exports.storyById = function(req, res){
   res.set('Cache-Control', 'max-age=10');
   db.getFullStoryTree(pool, req.params.id, function(snippets, err) {
@@ -44,24 +42,21 @@ function convertSnippetsToFullTree(snippets) {
 /*
  * GET stories
  */
-
 exports.allStories = function(req, res){
   res.set('Cache-Control', 'max-age=10');
   db.getAllStories(pool, function(stories, err) {
     console.log (JSON.stringify(stories));
-    // res.render('stories', {stories: stories});
-    res.send(stories, 200);
+    res.render('story-list', {"storyList": stories});
   });
 };
+
 /*
  * GET snippets/id
  */
-
 exports.snippetBranch = function(req, res){
   res.set('Cache-Control', 'max-age=10');
   db.getStoryBranchFromLeafSnippet(pool, req.params.id, function(snippets, err) {
     console.log (JSON.stringify(snippets));
-    // res.render('stories', {stories: stories});
-    res.send(snippets, 200);
+    res.render('branch', {snippets: snippets});
   });
 };

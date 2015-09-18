@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  div
+    -for (var i in snippets)
+      div
+        span #{snippets[i].body}
